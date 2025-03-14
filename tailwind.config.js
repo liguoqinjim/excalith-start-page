@@ -38,7 +38,13 @@ module.exports = {
 		},
 		extend: {
 			maxWidth: {
-				terminal: "50rem"
+				terminal: "50rem",
+				'terminal-1': "20rem",
+				'terminal-2': "35rem",
+				'terminal-3': "50rem",
+				'terminal-4': "65rem",
+				'terminal-5': "80rem",
+				'terminal-6': "95rem",
 			},
 			padding: {
 				terminal: "0.9rem"
@@ -71,6 +77,18 @@ module.exports = {
 		{
 			pattern:
 				/(bg|text|border|caret)-(white|gray|black|red|green|yellow|blue|cyan|magenta|textColor)/
-		}
+		},
+		"max-w-terminal-1",
+		"max-w-terminal-2",
+		"max-w-terminal-3",
+		"max-w-terminal-4",
+		"max-w-terminal-5",
+		"max-w-terminal-6",
+		"grid-cols-1",
+		"grid-cols-2",
+		"grid-cols-3",
+		"grid-cols-4",
+		"grid-cols-5",
+		"grid-cols-6",
 	]
 }

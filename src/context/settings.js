@@ -25,10 +25,10 @@ export const SettingsProvider = ({ children }) => {
 				.then((data) => setSettings(data))
 				.catch(() => setSettings(defaultConfig))
 		} else {
-			data = localStorage.getItem(SETTINGS_KEY)
-			if (data === "undefined") {
-				console.log("LocalStorage configuration reset to defaults.")
-			}
+			// data = localStorage.getItem(SETTINGS_KEY)
+			// if (data === "undefined") {
+			// 	console.log("LocalStorage configuration reset to defaults.")
+			// }
 			setSettings(data ? JSON.parse(data) : defaultConfig)
 		}
 	}, [])
@@ -78,6 +78,13 @@ export const SettingsProvider = ({ children }) => {
 				})
 			})
 			setItems(filterArr)
+
+			// 确保 columnCount 如果未提供则有默认值
+			if (!settings.columnCount) {
+				let newSettings = {...settings};
+				newSettings.columnCount = 3;
+				setSettings(newSettings);
+			}
 		}
 	}, [settings])
 

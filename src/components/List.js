@@ -43,9 +43,21 @@ const List = () => {
 		setSelection(sel)
 	}
 
+	// 函数以确定网格列类
+	const getGridColsClass = (columnCount) => {
+		switch(columnCount) {
+			case 1: return "grid-cols-1";
+			case 2: return "grid-cols-2";
+			case 4: return "grid-cols-4";
+			case 5: return "grid-cols-5";
+			case 6: return "grid-cols-6";
+			default: return "grid-cols-3"; // 默认3列
+		}
+	}
+
 	return (
 		<div id="list">
-			<div className="grid grid-cols-3 gap-4 px-3 py-2 mb-5">
+			<div className={`grid ${getGridColsClass(settings.columnCount)} gap-4 px-3 py-2 mb-5`}>
 				{settings.sections.list.map((section, index) => {
 					return (
 						<Section
