@@ -10,3 +10,19 @@ export function isURL(str) {
 	) // validate fragment locator
 	return !!urlPattern.test(str)
 }
+
+// 新增函数：检查是否为视频 URL
+export function isVideoURL(url) {
+	if (!url) return false
+
+	// 检查常见的视频文件扩展名
+	const videoExtensions = [".mp4", ".webm", ".ogg", ".mov", ".avi", ".mkv", ".flv"]
+	const lowercaseUrl = url.toLowerCase()
+
+	// 检查 URL 中的文件扩展名
+	return (
+		videoExtensions.some((ext) => lowercaseUrl.endsWith(ext)) ||
+		// 还检查 URL 中的查询参数是否包含视频 MIME 类型
+		lowercaseUrl.includes("video/")
+	)
+}

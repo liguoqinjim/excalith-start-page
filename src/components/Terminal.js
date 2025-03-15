@@ -56,13 +56,19 @@ const Terminal = () => {
 
 	// 函数以根据列数确定终端宽度类
 	const getTerminalWidthClass = (columnCount) => {
-		switch(columnCount) {
-			case 1: return "max-w-terminal-1";
-			case 2: return "max-w-terminal-2";
-			case 4: return "max-w-terminal-4";
-			case 5: return "max-w-terminal-5";
-			case 6: return "max-w-terminal-6";
-			default: return "max-w-terminal-3"; // 默认3列
+		switch (columnCount) {
+			case 1:
+				return "max-w-terminal-1"
+			case 2:
+				return "max-w-terminal-2"
+			case 4:
+				return "max-w-terminal-4"
+			case 5:
+				return "max-w-terminal-5"
+			case 6:
+				return "max-w-terminal-6"
+			default:
+				return "max-w-terminal-3" // 默认3列
 		}
 	}
 
@@ -70,9 +76,9 @@ const Terminal = () => {
 
 	return (
 		<div
-			className={`absolute w-full h-fit inset-x-0 inset-y-0 m-auto shadow-lg rounded-terminal bg-window-color ${getTerminalWidthClass(settings.columnCount)} p-terminal ${
-				settings.terminal.windowGlow && "window-glow"
-			}`}
+			className={`absolute w-full h-fit inset-x-0 inset-y-0 m-auto shadow-lg rounded-terminal bg-window-color ${getTerminalWidthClass(
+				settings.columnCount
+			)} p-terminal ${settings.terminal.windowGlow && "window-glow"}`}
 			style={windowHeight}
 			ref={windowRef}>
 			{getWindow()}

@@ -6,12 +6,14 @@ import "@fontsource/fira-code/400.css"
 import "@fontsource/fira-code/600.css"
 import { useSettings } from "@/context/settings"
 import { fetchAsset } from "@/utils/fetchAsset"
+import { isVideoURL } from "@/utils/isURL"
 
 export default function Home() {
 	const { settings } = useSettings()
 	const [wallpaper, setWallpaper] = useState(null)
 	const [isReady, setIsReady] = useState(false)
 	const [isLoaded, setIsLoaded] = useState(false)
+	const [isVideo, setIsVideo] = useState(false)
 
 	useEffect(() => {
 		const info = `\u00A9 2022-${new Date().getFullYear()} Can Cellek\n\nStart Page designed by Can Cellek\nCheck out the source code at\nhttps://github.com/excalith/excalith-start-page`
@@ -70,15 +72,20 @@ export default function Home() {
 		}
 
 		// Set Wallpaper
-		fetchAsset(settings.wallpaper.url)
-			.then((data) => {
-				if (data) {
-					setWallpaper(data)
-				}
-			})
-			.catch((error) => {
-				console.error("Failed to fetch wallpaper:", error)
-			})
+		if (settings.wallpaper.url) {
+			// 检查是否为视频 URL
+			setIsVideo(isVideoURL(settings.wallpaper.url))
+
+			fetchAsset(settings.wallpaper.url)
+				.then((data) => {
+					if (data) {
+						setWallpaper(data)
+					}
+				})
+				.catch((error) => {
+					console.error("Failed to fetch wallpaper:", error)
+				})
+		}
 
 		setIsReady(true)
 	}, [settings])
@@ -88,7 +95,7 @@ export default function Home() {
 			{isReady && (
 				<>
 					<Meta />
-					{wallpaper && (
+					{wallpaper && !isVideo && (
 						<Image
 							alt=""
 							className={`transition-opacity w-screen h-screen -z-50 object-cover
@@ -99,6 +106,23 @@ export default function Home() {
 							src={wallpaper}
 							fill
 							onLoad={() => {
+								setIsLoaded(true)
+							}}
+						/>
+					)}
+					{wallpaper && isVideo && (
+						<video
+							className={`transition-opacity w-screen h-screen -z-50 object-cover fixed
+							${settings.wallpaper.easing}
+							${settings.wallpaper.fadeIn && "duration-1000"}
+							${settings.wallpaper.blur && "blur-wallpaper"}
+							${isLoaded ? "opacity-100" : "opacity-0"}`}
+							src={wallpaper}
+							autoPlay
+							loop
+							muted
+							playsInline
+							onLoadedData={() => {
 								setIsLoaded(true)
 							}}
 						/>

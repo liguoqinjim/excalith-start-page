@@ -81,9 +81,9 @@ export const SettingsProvider = ({ children }) => {
 
 			// 确保 columnCount 如果未提供则有默认值
 			if (!settings.columnCount) {
-				let newSettings = {...settings};
-				newSettings.columnCount = 3;
-				setSettings(newSettings);
+				let newSettings = { ...settings }
+				newSettings.columnCount = 3
+				setSettings(newSettings)
 			}
 		}
 	}, [settings])
