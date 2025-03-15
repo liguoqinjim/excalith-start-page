@@ -73,17 +73,15 @@ export default function Home() {
 
 		// Set Wallpaper
 		if (settings.wallpaper.url) {
-			// 检查是否为视频 URL
-			setIsVideo(isVideoURL(settings.wallpaper.url))
-
 			fetchAsset(settings.wallpaper.url)
-				.then((data) => {
-					if (data) {
-						setWallpaper(data)
+				.then((result) => {
+					if (result.url) {
+						setWallpaper(result.url)
+						setIsVideo(result.isVideo)
 					}
 				})
 				.catch((error) => {
-					console.error("Failed to fetch wallpaper:", error)
+					console.error("获取壁纸时出错:", error)
 				})
 		}
 
