@@ -32,8 +32,8 @@ const Meta = () => {
 		// Fetch icon image
 		fetchAsset(settings.fetch.image)
 			.then((data) => {
-				if (data) {
-					setIcon(data)
+				if (data && data.url) {
+					setIcon(data.url)
 				}
 			})
 			.catch((error) => {

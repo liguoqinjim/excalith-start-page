@@ -15,10 +15,14 @@ const Terminal = () => {
 
 	useEffect(() => {
 		if (settings.terminal.fixedHeight) {
-			const clientHeight = windowRef.current.clientHeight
-			setWindowHeight({
-				height: clientHeight
-			})
+			const el = windowRef.current
+			const contentHeight = el.scrollHeight
+			const availableHeight = window.innerHeight - 32 // 留 2rem 上下边距
+			if (contentHeight > availableHeight) {
+				// 内容超出视口时等比缩小，保持整洁无滚动条
+				const scale = availableHeight / contentHeight
+				setWindowHeight({ zoom: scale })
+			}
 		}
 
 		const handleKeyDown = (event) => {

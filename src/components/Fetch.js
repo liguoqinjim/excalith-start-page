@@ -30,8 +30,8 @@ const Fetch = ({ closeCallback }) => {
 		// Fetch fetch image
 		fetchAsset(settings.fetch.image)
 			.then((data) => {
-				if (data) {
-					setIcon(data) // Set the image only if there is no warning message
+				if (data && data.url) {
+					setIcon(data.url) // Set the image URL only if there is no warning message
 				}
 			})
 			.catch((error) => {
