@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import defaultConfig from "data/settings"
 
-const SETTINGS_KEY = "settings"
 const IS_DOCKER = process.env.BUILD_MODE === "docker"
 
 export const SettingsContext = createContext({
@@ -33,21 +32,9 @@ export const SettingsProvider = ({ children }) => {
 		}
 	}, [])
 
-	// Save settings
+	// Build items list
 	useEffect(() => {
 		if (settings && settings !== "undefined") {
-			if (IS_DOCKER) {
-				fetch("/api/saveSettings", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify(settings)
-				})
-			} else {
-				localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings))
-			}
-
 			let filterArr = [
 				"help",
 				"fetch",
